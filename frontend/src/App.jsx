@@ -21,7 +21,8 @@ function LobbyScreen({ onJoin }) {
     setLoading(true);
     setErr("");
     try {
-      const res = await fetch("/rooms", {
+      const base = import.meta.env.VITE_API_BASE_URL ?? "";
+      const res = await fetch(`${base}/rooms`, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
       });

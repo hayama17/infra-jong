@@ -13,9 +13,15 @@ export function useWebSocket(roomId, playerName) {
   const shouldReconnect = useRef(true);
 
   const getWsUrl = useCallback(() => {
+    const apiBase = import.meta.env.VITE_API_BASE_URL;
+    if (apiBase) {
+      // 本番: VITE_API_BASE_URL=https://xxx.run.app → wss://xxx.run.app/ws/...
+      const wsBase = apiBase.replace(/^http/, "ws");
+      return `${wsBase}/ws/${roomId}/${encodeURIComponent(playerName)}`;
+    }
+    // ローカル: vite proxy 経由
     const protocol = window.location.protocol === "https:" ? "wss:" : "ws:";
-    const host = window.location.host;
-    return `${protocol}//${host}/ws/${roomId}/${encodeURIComponent(playerName)}`;
+    return `${protocol}//${window.location.host}/ws/${roomId}/${encodeURIComponent(playerName)}`;
   }, [roomId, playerName]);
 
   const connect = useCallback(() => {
