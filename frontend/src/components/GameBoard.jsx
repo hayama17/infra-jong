@@ -325,7 +325,7 @@ export default function GameBoard({ gameState, playerName, onAction }) {
   const pendingTile = pending_interrupt ? pending_interrupt.tile : null;
   const pendingFrom = pending_interrupt ? pending_interrupt.from_player : null;
   const canHotfixNow = pending_interrupt && pendingFrom !== playerName && canHotfix(myHand, pendingTile);
-  const canMergeNow = pending_interrupt && pendingFrom !== playerName && canMerge(myHand, pendingTile, myRevealed);
+  const canMergeNow = pending_interrupt && pendingFrom !== playerName && myRevealed.length === 0 && canMerge(myHand, pendingTile, myRevealed);
   const canCommitNow = isMyTurn && myHasDrawn && canCommit(myHand, myRevealed);
 
   const handleTileClick = (visualIndex) => {
@@ -666,8 +666,8 @@ export default function GameBoard({ gameState, playerName, onAction }) {
         {/* Revealed sets */}
         {myRevealed.length > 0 && (
           <div style={{ marginBottom: "12px" }}>
-            <div style={{ fontSize: "0.7rem", color: "#8b949e", marginBottom: "6px" }}>
-              公開セット（ホットフィックス済）:
+            <div style={{ fontSize: "0.7rem", color: "#d29922", marginBottom: "6px" }}>
+              公開セット（ホットフィックス済・ロン不可）:
             </div>
             <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
               {myRevealed.map((set, i) => (

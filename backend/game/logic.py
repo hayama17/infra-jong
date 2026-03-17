@@ -313,6 +313,10 @@ def merge_win(room: Room, claimer_name: str, tile: str) -> tuple[bool, str]:
     if not claimer:
         return False, "プレイヤーが見つかりません"
 
+    # ホットフィックス（ポン）済みの場合はロン不可
+    if claimer.revealed:
+        return False, "ホットフィックス済みのためロンできません（コミットのみ）"
+
     # Check win condition with the incoming tile
     is_win, terms = check_win_with_incoming(claimer.hand, tile, claimer.revealed)
     if not is_win:
