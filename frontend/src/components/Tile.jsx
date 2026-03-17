@@ -1,6 +1,6 @@
 import React from "react";
 
-const BACKBONE_CHARS = new Set(["S", "I", "A"]);
+const BACKBONE_CHARS = new Set(["S", "I", "A", "P", "O", "C"]);
 
 /**
  * Single tile component for インフラ雀.

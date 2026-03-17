@@ -2,33 +2,64 @@
 Tile definitions and term validation logic for インフラ雀 (Infra-Jan).
 """
 
-# All valid 3-character tech terms (all uppercase; 0 == O)
-VALID_TERMS = ["SLI", "SLO", "SLA", "IAC", "API", "IAM", "IDP", "CLI", "K8S", "SDK", "POD"]
+# All valid 3-character tech terms
+# ファミリー構成:
+#   SRE指標:        SLI / SLO / SLA / SRE
+#   可用性:         RTO / RPO
+#   オートスケーラー: HPA / VPA / CPA / OPA
+#   コンテナIF:     OCI / CNI / CSI / CRI
+#   k8sリソース:    POD / IDP / IAC / CRD / PVC / SVC
+#   ネットワーク:   DNS / TLS / VPN / CDN
+#   セキュリティ:   PKI / SSO
+#   認証・基盤:     IAM / K8S / SDK
+#   可観測性:       APM
+#   運用:           NOC
+VALID_TERMS = [
+    "SLI", "SLO", "SLA", "SRE",
+    "RTO", "RPO",
+    "HPA", "VPA", "CPA", "OPA",
+    "OCI", "CNI", "CSI", "CRI",
+    "POD", "IDP", "IAC", "CRD", "PVC", "SVC",
+    "DNS", "TLS", "VPN", "CDN",
+    "PKI", "SSO",
+    "IAM", "K8S", "SDK",
+    "APM",
+    "NOC",
+]
 
-# Tile distribution: character -> count
-# Lowercase merged into uppercase (a→A, s→S, o→O, d→D), 0 treated as O
+# Tile distribution (52 tiles total)
+# 出現頻度の高い文字ほど多め、孤立・低頻度文字は2枚
 TILE_DISTRIBUTION = {
-    "I": 5,   # SLI, IAC, API, IAM, IDP, CLI
-    "S": 5,   # SLI, SLO, SLA, SDK  (+1 from former 's')
-    "L": 4,   # SLI, SLO, SLA, CLI
-    "A": 5,   # SLA, API, IAM, IAC  (+2 from former 'a')
-    "P": 3,   # API, POD, IDP
-    "C": 2,   # IAC, CLI
-    "K": 2,   # K8S, SDK
-    "D": 3,   # IDP, SDK, POD  (+1 from former 'd')
-    "O": 3,   # SLO, POD  (+1 from former 'o')
-    "8": 2,   # K8S
-    "M": 2,   # IAM
+    # 高頻度 (8〜11用語に登場)
+    "S": 4,  # SLI,SLO,SLA,SRE,CSI,K8S,SDK,TLS,DNS,SVC,SSO
+    "I": 4,  # SLI,CNI,CSI,CRI,IDP,IAC,IAM,OCI,PKI
+    "A": 4,  # SLA,HPA,VPA,CPA,OPA,IAC,IAM,APM
+    "P": 4,  # RPO,HPA,VPA,CPA,OPA,POD,IDP,APM,PVC,VPN,PKI
+    "O": 4,  # SLO,RTO,RPO,OPA,POD,OCI,NOC,SSO
+    "C": 4,  # CPA,CNI,CSI,CRI,IAC,OCI,CRD,PVC,SVC,CDN,NOC
+    # 中頻度 (3〜6用語に登場)
+    "R": 3,  # SRE,RTO,RPO,CRI,CRD
+    "L": 3,  # SLI,SLO,SLA,TLS
+    "D": 3,  # POD,IDP,SDK,CRD,DNS,CDN
+    "K": 3,  # K8S,SDK,PKI
+    "N": 3,  # CNI,DNS,VPN,CDN,NOC
+    "V": 3,  # VPA,PVC,SVC,VPN
+    # 低頻度・孤立 (1〜2用語のみ)
+    "E": 2,  # SRE
+    "T": 2,  # RTO,TLS
+    "H": 2,  # HPA
+    "M": 2,  # IAM,APM
+    "8": 2,  # K8S
 }
 
-# Total tiles = 36
+# Total tiles = 52
 TOTAL_TILES = sum(TILE_DISTRIBUTION.values())
 
-# Backbone characters (S, I, A) - used in many terms
-BACKBONE_CHARS = {"S", "I", "A"}
+# 高頻度文字（多くの用語に登場）
+BACKBONE_CHARS = {"S", "I", "A", "P", "O", "C"}
 
-# Finisher characters - complete terms
-FINISHER_CHARS = {"C", "P", "D", "K", "L", "O", "8", "M"}
+# その他の文字
+FINISHER_CHARS = {"R", "L", "D", "K", "N", "V", "E", "T", "H", "M", "8"}
 
 
 def build_deck() -> list[str]:

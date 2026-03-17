@@ -1,7 +1,18 @@
 import React, { useState } from "react";
 import Tile from "./Tile.jsx";
 
-const VALID_TERMS = ["SLI", "SLO", "SLA", "IAC", "API", "IAM", "IDP", "CLI", "K8S", "SDK", "POD"];
+const VALID_TERMS = [
+  "SLI", "SLO", "SLA", "SRE",
+  "RTO", "RPO",
+  "HPA", "VPA", "CPA", "OPA",
+  "OCI", "CNI", "CSI", "CRI",
+  "POD", "IDP", "IAC", "CRD", "PVC", "SVC",
+  "DNS", "TLS", "VPN", "CDN",
+  "PKI", "SSO",
+  "IAM", "K8S", "SDK",
+  "APM",
+  "NOC",
+];
 
 // Check if adding a tile to hand can make a valid term (for hotfix/merge detection)
 function canHotfix(hand, discardedTile) {
@@ -263,9 +274,9 @@ function DiscardPile({ pile, lastDiscard, pendingInterrupt }) {
 
 export default function GameBoard({ gameState, playerName, onAction }) {
   const [selectedVisualIndex, setSelectedVisualIndex] = useState(null);
-  // handOrder: array of original-hand indices in display order
   const [handOrder, setHandOrder] = useState([]);
   const [dragOverIndex, setDragOverIndex] = useState(null);
+  const [highlightChar, setHighlightChar] = useState(null);
   const dragSrcIndex = React.useRef(null);
 
   if (!gameState) {
@@ -298,7 +309,9 @@ export default function GameBoard({ gameState, playerName, onAction }) {
         }
         return [...existing, ...added];
       }
-      // Tiles removed (e.g. after discard or pon): rebuild preserving relative order
+      // Tiles removed (e.g. pon): filter valid indices, preserve relative order
+      const valid = prev.filter((i) => i < n);
+      if (valid.length === n) return valid;
       return Array.from({ length: n }, (_, i) => i);
     });
     setSelectedVisualIndex(null);
@@ -325,6 +338,12 @@ export default function GameBoard({ gameState, playerName, onAction }) {
     const originalIndex = handOrder.length === myHand.length
       ? handOrder[selectedVisualIndex]
       : selectedVisualIndex;
+    // 捨てた牌を除いて並び順を維持し、サーバー側インデックスのシフトを補正
+    setHandOrder((prev) =>
+      prev
+        .filter((_, vi) => vi !== selectedVisualIndex)
+        .map((i) => (i > originalIndex ? i - 1 : i))
+    );
     onAction({ action: "discard", tile_index: originalIndex });
     setSelectedVisualIndex(null);
   };
@@ -684,6 +703,7 @@ export default function GameBoard({ gameState, playerName, onAction }) {
               onDragOver={(e) => handleDragOver(e, vi)}
               onDrop={(e) => handleDrop(e, vi)}
               onDragEnd={handleDragEnd}
+              onClick={() => setHighlightChar((prev) => (prev === ch ? null : ch))}
               style={{
                 opacity: dragSrcIndex.current === vi ? 0.4 : 1,
                 outline: dragOverIndex === vi ? "2px dashed #58a6ff" : "none",
@@ -785,28 +805,64 @@ export default function GameBoard({ gameState, playerName, onAction }) {
           padding: "12px 16px",
         }}
       >
-        <div style={{ fontSize: "0.75rem", color: "#6e7681", marginBottom: "8px" }}>
-          有効タームリスト
-        </div>
-        <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
-          {["SLI", "SLO", "SLA", "IAC", "API", "IAM", "IDP", "CLI", "K8S", "SDK", "POD"].map(
-            (term) => (
-              <span
-                key={term}
-                style={{
-                  fontFamily: "'JetBrains Mono', monospace",
-                  fontSize: "0.8rem",
-                  color: "#58a6ff",
-                  background: "rgba(88, 166, 255, 0.08)",
-                  padding: "2px 8px",
-                  borderRadius: "4px",
-                  border: "1px solid rgba(88, 166, 255, 0.2)",
-                }}
-              >
-                {term}
-              </span>
-            )
+        <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center", marginBottom: "10px" }}>
+          <span style={{ fontSize: "0.75rem", color: "#6e7681" }}>用語一覧</span>
+          {highlightChar && (
+            <span style={{ fontSize: "0.7rem", color: "#f0883e" }}>
+              「{highlightChar}」を含む用語を強調中
+              <button
+                onClick={() => setHighlightChar(null)}
+                style={{ marginLeft: "6px", background: "none", border: "none", color: "#6e7681", cursor: "pointer", fontSize: "0.7rem" }}
+              >✕</button>
+            </span>
           )}
+        </div>
+        <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
+          {[
+            { label: "SRE指標", terms: ["SLI", "SLO", "SLA", "SRE"] },
+            { label: "可用性", terms: ["RTO", "RPO"] },
+            { label: "オートスケーラー", terms: ["HPA", "VPA", "CPA", "OPA"] },
+            { label: "コンテナIF", terms: ["OCI", "CNI", "CSI", "CRI"] },
+            { label: "k8sリソース", terms: ["POD", "IDP", "IAC", "CRD", "PVC", "SVC"] },
+            { label: "ネットワーク", terms: ["DNS", "TLS", "VPN", "CDN"] },
+            { label: "セキュリティ", terms: ["PKI", "SSO"] },
+            { label: "認証・基盤", terms: ["IAM", "K8S", "SDK"] },
+            { label: "可観測性", terms: ["APM"] },
+            { label: "運用", terms: ["NOC"] },
+          ].map(({ label, terms }) => {
+            const hasMatch = highlightChar && terms.some((t) => t.includes(highlightChar));
+            return (
+              <div key={label} style={{ display: "flex", alignItems: "center", gap: "8px", opacity: highlightChar && !hasMatch ? 0.3 : 1, transition: "opacity 0.2s" }}>
+                <span style={{ fontSize: "0.7rem", color: "#6e7681", width: "110px", flexShrink: 0 }}>
+                  {label}
+                </span>
+                <div style={{ display: "flex", gap: "4px", flexWrap: "wrap" }}>
+                  {terms.map((term) => {
+                    const termMatches = highlightChar && term.includes(highlightChar);
+                    return (
+                      <span
+                        key={term}
+                        style={{
+                          fontFamily: "'JetBrains Mono', monospace",
+                          fontSize: "0.8rem",
+                          background: termMatches ? "rgba(240, 136, 62, 0.15)" : "rgba(88, 166, 255, 0.08)",
+                          padding: "2px 8px",
+                          borderRadius: "4px",
+                          border: termMatches ? "1px solid rgba(240, 136, 62, 0.5)" : "1px solid rgba(88, 166, 255, 0.2)",
+                        }}
+                      >
+                        {term.split("").map((ch, i) => (
+                          <span key={i} style={{ color: ch === highlightChar ? "#f0883e" : "#58a6ff", fontWeight: ch === highlightChar ? "900" : "400" }}>
+                            {ch}
+                          </span>
+                        ))}
+                      </span>
+                    );
+                  })}
+                </div>
+              </div>
+            );
+          })}
         </div>
       </div>
 
