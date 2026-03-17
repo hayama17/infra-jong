@@ -7,16 +7,15 @@
 - **初期手札**: 5枚
 - **勝利条件**: 3文字の技術用語を2つ完成させる
 
-## 有効用語（19語）
+## 有効用語（16語）
 
 | ファミリー | 用語 |
 | --- | --- |
-| SRE指標 | SLI / SLO / SLA / SRE |
-| 可用性 | RTO / RPO |
-| オートスケーラー | HPA / VPA / CPA / OPA |
-| コンテナIF | CNI / CSI / CRI |
-| k8sリソース | POD / IDP / IAC |
-| 認証・基盤 | IAM / K8S / SDK |
+| 最強コア | SRE / DNS / RPC / CRD / SDN |
+| プラットフォーム | SDK / CSP / RKE |
+| 組織・ロール | CRE / DRE / NRE |
+| セキュリティ | CSR / PKE |
+| コミュニティ | CNK / CND / PEK |
 
 ## ゲームの進行
 
@@ -59,5 +58,6 @@
 
 - **フォント**: JetBrains Mono
 - **色分け**:
-  - Backbone（S / I / A / P）: オレンジ・シアン — 多くの用語に登場する高頻度文字
-  - Finisher（その他）: グレー・ネイビー
+  - Backbone（R / E / C）: オレンジ・シアン — 多くの用語に登場する高頻度文字
+  - Middle（S / D / K / N）: グレー
+  - Finisher（P）: ネイビー — 少数用語専用の低頻度文字

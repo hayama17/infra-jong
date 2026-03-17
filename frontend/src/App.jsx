@@ -321,16 +321,11 @@ function LobbyScreen({ onJoin }) {
         <div>5枚の手牌から2つのエンジニア用語を完成させてください。</div>
         <div style={{ marginTop: "8px", display: "flex", flexDirection: "column", gap: "4px" }}>
           {[
-            { label: "SRE指標", terms: "SLI / SLO / SLA / SRE" },
-            { label: "可用性", terms: "RTO / RPO" },
-            { label: "オートスケーラー", terms: "HPA / VPA / CPA / OPA" },
-            { label: "コンテナIF", terms: "OCI / CNI / CSI / CRI" },
-            { label: "k8sリソース", terms: "POD / IDP / IAC / CRD / PVC / SVC" },
-            { label: "ネットワーク", terms: "DNS / TLS / VPN / CDN" },
-            { label: "セキュリティ", terms: "PKI / SSO" },
-            { label: "認証・基盤", terms: "IAM / K8S / SDK" },
-            { label: "可観測性", terms: "APM" },
-            { label: "運用", terms: "NOC" },
+            { label: "最強コア", terms: "SRE / DNS / RPC / CRD / SDN" },
+            { label: "プラットフォーム", terms: "SDK / CSP / RKE" },
+            { label: "組織・ロール", terms: "CRE / DRE / NRE" },
+            { label: "セキュリティ", terms: "CSR / PKE" },
+            { label: "コミュニティ", terms: "CNK / CND / PEK" },
           ].map(({ label, terms }) => (
             <div key={label} style={{ display: "flex", gap: "8px" }}>
               <span style={{ width: "110px", flexShrink: 0, color: "#6e7681" }}>{label}</span>

@@ -4,62 +4,46 @@ Tile definitions and term validation logic for インフラ雀 (Infra-Jan).
 
 # All valid 3-character tech terms
 # ファミリー構成:
-#   SRE指標:        SLI / SLO / SLA / SRE
-#   可用性:         RTO / RPO
-#   オートスケーラー: HPA / VPA / CPA / OPA
-#   コンテナIF:     OCI / CNI / CSI / CRI
-#   k8sリソース:    POD / IDP / IAC / CRD / PVC / SVC
-#   ネットワーク:   DNS / TLS / VPN / CDN
-#   セキュリティ:   PKI / SSO
-#   認証・基盤:     IAM / K8S / SDK
-#   可観測性:       APM
-#   運用:           NOC
+#   最強コア:       SRE / DNS / RPC / CRD / SDN
+#   プラットフォーム: SDK / CSP / RKE
+#   組織・ロール:   CRE / DRE / NRE
+#   セキュリティ:   CSR / PKE
+#   コミュニティ:   CNK / CND / PEK
 VALID_TERMS = [
-    "SLI", "SLO", "SLA", "SRE",
-    "RTO", "RPO",
-    "HPA", "VPA", "CPA", "OPA",
-    "OCI", "CNI", "CSI", "CRI",
-    "POD", "IDP", "IAC", "CRD", "PVC", "SVC",
-    "DNS", "TLS", "VPN", "CDN",
-    "PKI", "SSO",
-    "IAM", "K8S", "SDK",
-    "APM",
-    "NOC",
+    "SRE", "DNS", "RPC", "CRD", "SDN",
+    "SDK", "CSP", "RKE",
+    "CRE", "DRE", "NRE",
+    "CSR", "PKE",
+    "CNK", "CND", "PEK",
 ]
 
-# Tile distribution (52 tiles total)
-# 出現頻度の高い文字ほど多め、孤立・低頻度文字は2枚
+# Tile distribution (48 tiles total)
+# 出現頻度に比例して配分
 TILE_DISTRIBUTION = {
-    # 高頻度 (8〜11用語に登場)
-    "S": 4,  # SLI,SLO,SLA,SRE,CSI,K8S,SDK,TLS,DNS,SVC,SSO
-    "I": 4,  # SLI,CNI,CSI,CRI,IDP,IAC,IAM,OCI,PKI
-    "A": 4,  # SLA,HPA,VPA,CPA,OPA,IAC,IAM,APM
-    "P": 4,  # RPO,HPA,VPA,CPA,OPA,POD,IDP,APM,PVC,VPN,PKI
-    "O": 4,  # SLO,RTO,RPO,OPA,POD,OCI,NOC,SSO
-    "C": 4,  # CPA,CNI,CSI,CRI,IAC,OCI,CRD,PVC,SVC,CDN,NOC
-    # 中頻度 (3〜6用語に登場)
-    "R": 3,  # SRE,RTO,RPO,CRI,CRD
-    "L": 3,  # SLI,SLO,SLA,TLS
-    "D": 3,  # POD,IDP,SDK,CRD,DNS,CDN
-    "K": 3,  # K8S,SDK,PKI
-    "N": 3,  # CNI,DNS,VPN,CDN,NOC
-    "V": 3,  # VPA,PVC,SVC,VPN
-    # 低頻度・孤立 (1〜2用語のみ)
-    "E": 2,  # SRE
-    "T": 2,  # RTO,TLS
-    "H": 2,  # HPA
-    "M": 2,  # IAM,APM
-    "8": 2,  # K8S
+    # Backbone (7〜8用語に登場)
+    "R": 8,   # SRE,RPC,CRD,RKE,CRE,DRE,NRE,CSR
+    "E": 7,   # SRE,RKE,CRE,DRE,NRE,PKE,PEK
+    "C": 7,   # RPC,CRD,CSP,CRE,CSR,CNK,CND
+    # Middle (5〜6用語に登場)
+    "S": 6,   # SRE,DNS,SDN,SDK,CSP,CSR
+    "D": 6,   # DNS,CRD,SDN,SDK,DRE,CND
+    "K": 5,   # SDK,RKE,PKE,CNK,PEK
+    "N": 5,   # DNS,SDN,NRE,CNK,CND
+    # Finisher (4用語のみ)
+    "P": 4,   # RPC,CSP,PKE,PEK
 }
 
-# Total tiles = 52
+# Total tiles = 48
 TOTAL_TILES = sum(TILE_DISTRIBUTION.values())
 
 # 高頻度文字（多くの用語に登場）
-BACKBONE_CHARS = {"S", "I", "A", "P", "O", "C"}
+BACKBONE_CHARS = {"R", "E", "C"}
 
-# その他の文字
-FINISHER_CHARS = {"R", "L", "D", "K", "N", "V", "E", "T", "H", "M", "8"}
+# 中頻度文字
+MIDDLE_CHARS = {"S", "D", "K", "N"}
+
+# 低頻度文字（少数用語専用）
+FINISHER_CHARS = {"P"}
 
 
 def build_deck() -> list[str]:

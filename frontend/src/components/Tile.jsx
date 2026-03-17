@@ -1,10 +1,10 @@
 import React from "react";
 
-const BACKBONE_CHARS = new Set(["S", "I", "A", "P", "O", "C"]);
+const BACKBONE_CHARS = new Set(["R", "E", "C"]);
 
 /**
  * Single tile component for インフラ雀.
- * Backbone chars (S, I, A) get orange/cyan gradient style.
+ * Backbone chars (R, E, C) get orange/cyan gradient style.
  * Finisher chars get gray/navy style.
  */
 export default function Tile({ char, onClick, selected, locked, faded }) {

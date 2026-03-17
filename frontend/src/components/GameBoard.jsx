@@ -2,16 +2,11 @@ import React, { useState } from "react";
 import Tile from "./Tile.jsx";
 
 const VALID_TERMS = [
-  "SLI", "SLO", "SLA", "SRE",
-  "RTO", "RPO",
-  "HPA", "VPA", "CPA", "OPA",
-  "OCI", "CNI", "CSI", "CRI",
-  "POD", "IDP", "IAC", "CRD", "PVC", "SVC",
-  "DNS", "TLS", "VPN", "CDN",
-  "PKI", "SSO",
-  "IAM", "K8S", "SDK",
-  "APM",
-  "NOC",
+  "SRE", "DNS", "RPC", "CRD", "SDN",
+  "SDK", "CSP", "RKE",
+  "CRE", "DRE", "NRE",
+  "CSR", "PKE",
+  "CNK", "CND", "PEK",
 ];
 
 // Check if adding a tile to hand can make a valid term (for hotfix/merge detection)
@@ -819,16 +814,11 @@ export default function GameBoard({ gameState, playerName, onAction }) {
         </div>
         <div style={{ display: "flex", flexDirection: "column", gap: "6px" }}>
           {[
-            { label: "SRE指標", terms: ["SLI", "SLO", "SLA", "SRE"] },
-            { label: "可用性", terms: ["RTO", "RPO"] },
-            { label: "オートスケーラー", terms: ["HPA", "VPA", "CPA", "OPA"] },
-            { label: "コンテナIF", terms: ["OCI", "CNI", "CSI", "CRI"] },
-            { label: "k8sリソース", terms: ["POD", "IDP", "IAC", "CRD", "PVC", "SVC"] },
-            { label: "ネットワーク", terms: ["DNS", "TLS", "VPN", "CDN"] },
-            { label: "セキュリティ", terms: ["PKI", "SSO"] },
-            { label: "認証・基盤", terms: ["IAM", "K8S", "SDK"] },
-            { label: "可観測性", terms: ["APM"] },
-            { label: "運用", terms: ["NOC"] },
+            { label: "最強コア", terms: ["SRE", "DNS", "RPC", "CRD", "SDN"] },
+            { label: "プラットフォーム", terms: ["SDK", "CSP", "RKE"] },
+            { label: "組織・ロール", terms: ["CRE", "DRE", "NRE"] },
+            { label: "セキュリティ", terms: ["CSR", "PKE"] },
+            { label: "コミュニティ", terms: ["CNK", "CND", "PEK"] },
           ].map(({ label, terms }) => {
             const hasMatch = highlightChar && terms.some((t) => t.includes(highlightChar));
             return (
