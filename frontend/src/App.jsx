@@ -429,7 +429,7 @@ function WaitingScreen({ roomId, playerName, gameState, onStart, connected }) {
               fontWeight: "600",
             }}
           >
-            参加者 ({players.length}/3)
+            参加者 ({players.length}/4)
           </div>
           {players.map((p, i) => (
             <div
