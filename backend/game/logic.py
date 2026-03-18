@@ -1,5 +1,5 @@
 """
-Game state and logic for インフラ雀 (Infra-Jan).
+Game state and logic for CNK雀 (Infra-Jan).
 """
 
 import asyncio

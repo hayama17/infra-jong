@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef, useCallback } from "react";
 
 /**
- * WebSocket hook for インフラ雀.
+ * WebSocket hook for CNK雀.
  * Connects to /ws/{roomId}/{playerName} and handles messages.
  */
 export function useWebSocket(roomId, playerName) {

@@ -1,4 +1,4 @@
-# インフラ雀
+# CNK雀
 
 CNKコミュニティイベント向けブラウザカードゲーム。麻雀風ルールでエンジニア用語を完成させる。
 
@@ -56,7 +56,7 @@ wrangler login
 cd frontend
 npm install
 npm run build
-wrangler pages deploy dist --project-name=インフラ雀のプロジェクト名
+wrangler pages deploy dist --project-name=CNK雀のプロジェクト名
 ```
 
 ---

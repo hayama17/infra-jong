@@ -1,5 +1,5 @@
 """
-インフラ雀 (Infra-Jan) - FastAPI Backend
+CNK雀 (Infra-Jan) - FastAPI Backend
 """
 
 import asyncio
@@ -30,12 +30,12 @@ logger = logging.getLogger(__name__)
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
-    logger.info("インフラ雀サーバー起動")
+    logger.info("CNK雀サーバー起動")
     yield
-    logger.info("インフラ雀サーバー停止")
+    logger.info("CNK雀サーバー停止")
 
 
-app = FastAPI(title="インフラ雀", version="1.0.0", lifespan=lifespan)
+app = FastAPI(title="CNK雀", version="1.0.0", lifespan=lifespan)
 
 app.add_middleware(
     CORSMiddleware,
@@ -52,7 +52,7 @@ app.add_middleware(
 
 @app.get("/")
 async def health_check():
-    return {"status": "ok", "game": "インフラ雀"}
+    return {"status": "ok", "game": "CNK雀"}
 
 
 @app.post("/rooms")

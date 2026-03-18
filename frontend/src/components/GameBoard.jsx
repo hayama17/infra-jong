@@ -517,7 +517,7 @@ export default function GameBoard({ gameState, playerName, onAction }) {
             color: "#58a6ff",
           }}
         >
-          インフラ雀
+          CNK雀
         </h1>
         <div style={{ display: "flex", gap: "16px", fontSize: "0.8rem", color: "#8b949e" }}>
           <span>山牌: {deck_count}枚</span>

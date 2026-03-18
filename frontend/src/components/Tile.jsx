@@ -3,7 +3,7 @@ import React from "react";
 const BACKBONE_CHARS = new Set(["R", "E", "C"]);
 
 /**
- * Single tile component for インフラ雀.
+ * Single tile component for CNK雀.
  * Backbone chars (R, E, C) get orange/cyan gradient style.
  * Finisher chars get gray/navy style.
  */

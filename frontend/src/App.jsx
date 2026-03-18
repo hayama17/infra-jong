@@ -72,7 +72,7 @@ function LobbyScreen({ onJoin }) {
             marginBottom: "8px",
           }}
         >
-          インフラ雀
+          CNK雀
         </h1>
         <p style={{ color: "#8b949e", fontSize: "1rem" }}>
           エンジニア用語で遊ぶ麻雀風カードゲーム

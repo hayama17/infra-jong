@@ -1,5 +1,5 @@
 """
-Tile definitions and term validation logic for インフラ雀 (Infra-Jan).
+Tile definitions and term validation logic for CNK雀 (Infra-Jan).
 """
 
 # All valid 3-character tech terms
