@@ -33,6 +33,9 @@ docker compose up --build
 | ビルドコマンド | `npm run build` |
 | ビルド出力ディレクトリ | `dist` |
 | ルートディレクトリ | `frontend` |
+| デプロイコマンド | （空のまま） |
+
+> **注意**: デプロイコマンドに `wrangler deploy` は設定しないこと。Pages はビルド後に自動でデプロイするため不要。設定すると vite.config.js を書き換えてビルドが壊れる。
 
 4. **環境変数** に以下を追加
 
