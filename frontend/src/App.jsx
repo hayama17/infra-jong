@@ -317,7 +317,7 @@ function LobbyScreen({ onJoin }) {
         }}
       >
         <div style={{ color: "#8b949e", fontWeight: "600", marginBottom: "8px" }}>ルール概要</div>
-        <div>2〜3人で遊ぶカードゲームです。</div>
+        <div>2〜4人で遊ぶ麻雀風ゲームです。</div>
         <div>5枚の手牌から2つのエンジニア用語を完成させてください。</div>
         <div style={{ marginTop: "8px", display: "flex", flexDirection: "column", gap: "4px" }}>
           {[

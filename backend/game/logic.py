@@ -110,8 +110,8 @@ def add_player_to_room(room: Room, player_name: str) -> tuple[bool, str]:
     """
     if room.phase != "waiting":
         return False, "ゲームはすでに開始されています"
-    if len(room.players) >= 3:
-        return False, "部屋が満員です（最大3人）"
+    if len(room.players) >= 4:
+        return False, "部屋が満員です（最大4人）"
     if room.get_player(player_name):
         return False, "その名前はすでに使用されています"
     player = Player(name=player_name)
