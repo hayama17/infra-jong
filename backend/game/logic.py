@@ -234,7 +234,7 @@ def commit_win(room: Room, player_name: str) -> tuple[bool, str]:
         return False, "あなたのターンではありません"
 
     if not current.has_drawn:
-        return False, "ツモ勝利にはドローが必要です"
+        return False, "コミットにはドローが必要です"
 
     is_win, terms = check_win(current.hand, current.revealed)
     if not is_win:
@@ -255,13 +255,13 @@ def hotfix_claim(room: Room, claimer_name: str, tile: str) -> tuple[bool, str]:
         return False, "ゲームが進行中ではありません"
 
     if not room.pending_interrupt:
-        return False, "ポン可能な牌がありません"
+        return False, "ホットフィックス可能な牌がありません"
 
     if room.pending_interrupt["tile"] != tile:
-        return False, "その牌はポンできません"
+        return False, "その牌はホットフィックスできません"
 
     if room.pending_interrupt["from_player"] == claimer_name:
-        return False, "自分の捨て牌はポンできません"
+        return False, "自分がデプロイした牌はホットフィックスできません"
 
     claimer = room.get_player(claimer_name)
     if not claimer:
@@ -269,7 +269,7 @@ def hotfix_claim(room: Room, claimer_name: str, tile: str) -> tuple[bool, str]:
 
     result = get_hotfix_term(claimer.hand, tile)
     if not result:
-        return False, "ポン可能な組み合わせがありません"
+        return False, "ホットフィックス可能な組み合わせがありません"
 
     term_str, hand_indices = result
 
@@ -301,26 +301,26 @@ def merge_win(room: Room, claimer_name: str, tile: str) -> tuple[bool, str]:
         return False, "ゲームが進行中ではありません"
 
     if not room.pending_interrupt:
-        return False, "ロン可能な牌がありません"
+        return False, "マージ可能な牌がありません"
 
     if room.pending_interrupt["tile"] != tile:
-        return False, "その牌ではロンできません"
+        return False, "その牌ではマージできません"
 
     if room.pending_interrupt["from_player"] == claimer_name:
-        return False, "自分の捨て牌ではロンできません"
+        return False, "自分がデプロイした牌ではマージできません"
 
     claimer = room.get_player(claimer_name)
     if not claimer:
         return False, "プレイヤーが見つかりません"
 
-    # ホットフィックス（ポン）済みの場合はロン不可
+    # ホットフィックス済みの場合はマージ不可
     if claimer.revealed:
-        return False, "ホットフィックス済みのためロンできません（コミットのみ）"
+        return False, "ホットフィックス済みのためマージできません（コミットのみ）"
 
     # Check win condition with the incoming tile
     is_win, terms = check_win_with_incoming(claimer.hand, tile, claimer.revealed)
     if not is_win:
-        return False, "ロン勝利条件を満たしていません"
+        return False, "マージの勝利条件を満たしていません"
 
     room.phase = "finished"
     room.winner = claimer_name

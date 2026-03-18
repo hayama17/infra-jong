@@ -146,7 +146,7 @@ function PlayerStatus({ player, isMe, isCurrent }) {
       </div>
 
       <div style={{ fontSize: "0.8rem", color: "#8b949e", marginBottom: "6px" }}>
-        手牌: {player.hand_count}枚
+        ハンド: {player.hand_count}枚
         {player.has_drawn && (
           <span
             style={{
@@ -212,7 +212,7 @@ function DiscardPile({ pile, lastDiscard, pendingInterrupt }) {
           fontWeight: "600",
         }}
       >
-        捨て牌
+        デプロイ済み
       </div>
       {recentPile.length === 0 ? (
         <div style={{ color: "#6e7681", fontSize: "0.8rem" }}>なし</div>
@@ -448,7 +448,7 @@ export default function GameBoard({ gameState, playerName, onAction }) {
               marginBottom: "8px",
             }}
           >
-            {isDraw ? "引き分け" : isWinner ? "アガリ！" : `${winner} の勝ち！`}
+            {isDraw ? "引き分け" : isWinner ? "コミット成功！" : `${winner} の勝ち！`}
           </h2>
           {!isDraw && winning_terms && (
             <div style={{ marginTop: "16px" }}>
@@ -520,7 +520,7 @@ export default function GameBoard({ gameState, playerName, onAction }) {
           インフラ雀
         </h1>
         <div style={{ display: "flex", gap: "16px", fontSize: "0.8rem", color: "#8b949e" }}>
-          <span>山牌: {deck_count}枚</span>
+          <span>デッキ: {deck_count}枚</span>
           <span
             style={{
               color: isMyTurn ? "#3fb950" : "#8b949e",
@@ -566,7 +566,7 @@ export default function GameBoard({ gameState, playerName, onAction }) {
                   fontSize: "0.85rem",
                 }}
               >
-                ホットフィックス (ポン)
+                ホットフィックス
               </button>
             )}
             {canMergeNow && (
@@ -583,7 +583,7 @@ export default function GameBoard({ gameState, playerName, onAction }) {
                   fontSize: "0.85rem",
                 }}
               >
-                マージ (ロン)
+                マージ
               </button>
             )}
           </div>
@@ -631,16 +631,16 @@ export default function GameBoard({ gameState, playerName, onAction }) {
             alignItems: "center",
           }}
         >
-          <span>あなたの手牌</span>
+          <span>あなたのハンド</span>
           <div style={{ display: "flex", gap: "8px", alignItems: "center" }}>
             {isMyTurn && myHasDrawn && selectedVisualIndex === null && (
               <span style={{ color: "#d29922", fontSize: "0.75rem" }}>
-                捨てる牌を選んでください
+                デプロイする牌を選んでください
               </span>
             )}
             <button
               onClick={handleRippai}
-              title="理牌（アルファベット順に並べ替え）"
+              title="ソート（アルファベット順に並べ替え）"
               style={{
                 padding: "3px 10px",
                 background: "rgba(139, 148, 158, 0.1)",
@@ -653,7 +653,7 @@ export default function GameBoard({ gameState, playerName, onAction }) {
               onMouseEnter={(e) => (e.target.style.color = "#e6edf3")}
               onMouseLeave={(e) => (e.target.style.color = "#8b949e")}
             >
-              理牌
+              ソート
             </button>
           </div>
         </div>
@@ -662,7 +662,7 @@ export default function GameBoard({ gameState, playerName, onAction }) {
         {myRevealed.length > 0 && (
           <div style={{ marginBottom: "12px" }}>
             <div style={{ fontSize: "0.7rem", color: "#d29922", marginBottom: "6px" }}>
-              公開セット（ホットフィックス済・ロン不可）:
+              公開セット（ホットフィックス済・マージ不可）:
             </div>
             <div style={{ display: "flex", gap: "8px", flexWrap: "wrap" }}>
               {myRevealed.map((set, i) => (
@@ -715,7 +715,7 @@ export default function GameBoard({ gameState, playerName, onAction }) {
             </div>
           ))}
           {myHand.length === 0 && (
-            <div style={{ color: "#6e7681", fontSize: "0.85rem" }}>手牌なし</div>
+            <div style={{ color: "#6e7681", fontSize: "0.85rem" }}>ハンドなし</div>
           )}
         </div>
 
@@ -739,7 +739,7 @@ export default function GameBoard({ gameState, playerName, onAction }) {
               onMouseEnter={(e) => (e.target.style.background = "rgba(88, 166, 255, 0.25)")}
               onMouseLeave={(e) => (e.target.style.background = "rgba(88, 166, 255, 0.15)")}
             >
-              ツモ（ドロー）
+              ドロー
             </button>
           )}
 
@@ -761,7 +761,7 @@ export default function GameBoard({ gameState, playerName, onAction }) {
               onMouseEnter={(e) => (e.target.style.background = "rgba(248, 81, 73, 0.25)")}
               onMouseLeave={(e) => (e.target.style.background = "rgba(248, 81, 73, 0.15)")}
             >
-              打牌（{orderedHand[selectedVisualIndex]}を捨てる）
+              デプロイ（{orderedHand[selectedVisualIndex]}を捨てる）
             </button>
           )}
 
@@ -785,7 +785,7 @@ export default function GameBoard({ gameState, playerName, onAction }) {
               onMouseEnter={(e) => (e.target.style.background = "rgba(63, 185, 80, 0.35)")}
               onMouseLeave={(e) => (e.target.style.background = "rgba(63, 185, 80, 0.2)")}
             >
-              コミット！（ツモ）
+              コミット！
             </button>
           )}
         </div>
