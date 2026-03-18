@@ -267,7 +267,7 @@ function DiscardPile({ pile, lastDiscard, pendingInterrupt }) {
 // Main GameBoard
 // -------------------------------------------------------------------------
 
-export default function GameBoard({ gameState, playerName, onAction }) {
+export default function GameBoard({ gameState, playerName, onAction, isCreator }) {
   const [selectedVisualIndex, setSelectedVisualIndex] = useState(null);
   const [handOrder, setHandOrder] = useState([]);
   const [dragOverIndex, setDragOverIndex] = useState(null);
@@ -502,9 +502,28 @@ export default function GameBoard({ gameState, playerName, onAction }) {
               </div>
             </div>
           )}
-          <div style={{ marginTop: "24px", fontSize: "0.85rem", color: "#6e7681" }}>
-            ページをリロードして新しいゲームを始めてください
-          </div>
+          {isCreator ? (
+            <button
+              onClick={() => onAction({ action: "reset" })}
+              style={{
+                marginTop: "24px",
+                padding: "12px 32px",
+                background: "rgba(88, 166, 255, 0.15)",
+                border: "1px solid #388bfd",
+                borderRadius: "8px",
+                color: "#58a6ff",
+                fontWeight: "700",
+                cursor: "pointer",
+                fontSize: "1rem",
+              }}
+            >
+              もう一度
+            </button>
+          ) : (
+            <div style={{ marginTop: "24px", fontSize: "0.85rem", color: "#6e7681" }}>
+              ホストが次のゲームを開始するのを待っています...
+            </div>
+          )}
         </div>
       </div>
     );

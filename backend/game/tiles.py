@@ -17,20 +17,20 @@ VALID_TERMS = [
     "CNK", "CND", "PEK",
 ]
 
-# Tile distribution (48 tiles total)
-# 出現頻度に比例して配分
+# Tile distribution (52 tiles total)
+# Backbone を抑えて孤立牌（N/P/K）を厚くすることで初期あがりを抑制
 TILE_DISTRIBUTION = {
-    # Backbone (7〜8用語に登場)
-    "R": 8,   # SRE,RPC,CRD,RKE,CRE,DRE,NRE,CSR
-    "E": 7,   # SRE,RKE,CRE,DRE,NRE,PKE,PEK
-    "C": 7,   # RPC,CRD,CSP,CRE,CSR,CNK,CND
+    # Backbone (7〜8用語に登場) — 少なめに抑える
+    "R": 6,   # SRE,RPC,CRD,RKE,CRE,DRE,NRE,CSR
+    "E": 5,   # SRE,RKE,CRE,DRE,NRE,PKE,PEK
+    "C": 5,   # RPC,CRD,CSP,CRE,CSR,CNK,CND
     # Middle (5〜6用語に登場)
-    "S": 6,   # SRE,DNS,SDN,SDK,CSP,CSR
-    "D": 6,   # DNS,CRD,SDN,SDK,DRE,CND
-    "K": 5,   # SDK,RKE,PKE,CNK,PEK
-    "N": 5,   # DNS,SDN,NRE,CNK,CND
-    # Finisher (4用語のみ)
-    "P": 4,   # RPC,CSP,PKE,PEK
+    "S": 5,   # SRE,DNS,SDN,SDK,CSP,CSR
+    "D": 5,   # DNS,CRD,SDN,SDK,DRE,CND
+    # Finisher (3〜5用語) — 多めにして山を希釈
+    "K": 9,   # SDK,RKE,PKE,CNK,PEK
+    "N": 9,   # DNS,SDN,NRE,CNK,CND
+    "P": 8,   # RPC,CSP,PKE,PEK
 }
 
 # Total tiles = 48

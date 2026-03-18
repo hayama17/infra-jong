@@ -88,6 +88,7 @@ class Room:
             "winner": self.winner,
             "winning_terms": self.winning_terms,
             "pending_interrupt": self.pending_interrupt,
+            "creator": self.creator,
         }
 
 
@@ -121,15 +122,43 @@ def add_player_to_room(room: Room, player_name: str) -> tuple[bool, str]:
     return True, ""
 
 
+def reset_room(room: Room) -> tuple[bool, str]:
+    """
+    Reset a finished room back to waiting phase for a rematch.
+    Players stay; game state is cleared.
+    """
+    if room.phase != "finished":
+        return False, "ゲームが終了していません"
+    if room.interrupt_timer_task and not room.interrupt_timer_task.done():
+        room.interrupt_timer_task.cancel()
+    room.phase = "waiting"
+    room.deck = []
+    room.discard_pile = []
+    room.winner = None
+    room.winning_terms = None
+    room.last_discard = None
+    room.pending_interrupt = None
+    room.interrupt_timer_task = None
+    room.current_player_index = 0
+    for player in room.players:
+        player.hand = []
+        player.revealed = []
+        player.has_drawn = False
+    return True, ""
+
+
 def start_game(room: Room) -> tuple[bool, str]:
     """
-    Start the game: shuffle deck, deal 5 tiles per player.
+    Start the game: shuffle deck, randomize player order, deal 5 tiles per player.
     Returns (success, error_message).
     """
     if room.phase != "waiting":
         return False, "ゲームはすでに開始されています"
     if len(room.players) < 2:
         return False, "最低2人必要です"
+
+    # ランダムに順番を決める
+    random.shuffle(room.players)
 
     # Build and shuffle deck
     deck = build_deck()

@@ -345,7 +345,7 @@ function LobbyScreen({ onJoin }) {
 function WaitingScreen({ roomId, playerName, gameState, onStart, connected }) {
   const players = gameState ? gameState.players : [];
   const canStart = players.length >= 2;
-  const isCreator = gameState && players.length > 0 && players[0].name === playerName;
+  const isCreator = gameState?.creator === playerName;
 
   return (
     <div
@@ -635,19 +635,12 @@ export default function App() {
         />
       )}
 
-      {roomId && phase === "playing" && (
+      {roomId && (phase === "playing" || phase === "finished") && (
         <GameBoard
           gameState={gameState}
           playerName={playerName}
           onAction={handleAction}
-        />
-      )}
-
-      {roomId && phase === "finished" && (
-        <GameBoard
-          gameState={gameState}
-          playerName={playerName}
-          onAction={handleAction}
+          isCreator={gameState?.creator === playerName}
         />
       )}
     </div>

@@ -19,18 +19,18 @@
 | コミュニティ | CND | Cloud Native Days |
 | コミュニティ | PEK | Platform Engineering Kansai |
 
-## 牌一覧（全48枚）
+## 牌一覧（全52枚）
 
 | 文字 | 枚数 | 登場する用語 | 分類 |
 | --- | --- | --- | --- |
-| R | 8 | SRE, RPC, CRD, RKE, CRE, DRE, NRE, CSR | Backbone |
-| E | 7 | SRE, RKE, CRE, DRE, NRE, PKE, PEK | Backbone |
-| C | 7 | RPC, CRD, CSP, CRE, CSR, CNK, CND | Backbone |
-| S | 6 | SRE, DNS, SDN, SDK, CSP, CSR | Middle |
-| D | 6 | DNS, CRD, SDN, SDK, DRE, CND | Middle |
-| K | 5 | SDK, RKE, PKE, CNK, PEK | Middle |
-| N | 5 | DNS, SDN, NRE, CNK, CND | Middle |
-| P | 4 | RPC, CSP, PKE, PEK | Finisher |
-| **合計** | **48** | | |
+| R | 6 | SRE, RPC, CRD, RKE, CRE, DRE, NRE, CSR | Backbone |
+| E | 5 | SRE, RKE, CRE, DRE, NRE, PKE, PEK | Backbone |
+| C | 5 | RPC, CRD, CSP, CRE, CSR, CNK, CND | Backbone |
+| S | 5 | SRE, DNS, SDN, SDK, CSP, CSR | Middle |
+| D | 5 | DNS, CRD, SDN, SDK, DRE, CND | Middle |
+| K | 9 | SDK, RKE, PKE, CNK, PEK | Finisher |
+| N | 9 | DNS, SDN, NRE, CNK, CND | Finisher |
+| P | 8 | RPC, CSP, PKE, PEK | Finisher |
+| **合計** | **52** | | |
 
-> Backbone（R/E/C）は多用語に登場する高頻度文字。Finisher（P）は少数用語専用で、引いたらそのファミリーを狙う判断が必要。
+> Backbone（R/E/C）は抑えめ、Finisher（K/N/P）を厚くして初期あがりを抑制。

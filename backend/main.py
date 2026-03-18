@@ -15,6 +15,7 @@ from game.logic import (
     get_room,
     add_player_to_room,
     start_game,
+    reset_room,
     draw_tile,
     discard_tile,
     commit_win,
@@ -258,6 +259,16 @@ async def websocket_endpoint(websocket: WebSocket, room_id: str, player_name: st
                         room.interrupt_timer_task = asyncio.create_task(
                             interrupt_timer(room, room_id)
                         )
+                    continue
+                await broadcast_state(room)
+
+            elif action == "reset":
+                if room.creator != player_name:
+                    await send_error(websocket, "リセットできるのは部屋の作成者のみです")
+                    continue
+                success, error = reset_room(room)
+                if not success:
+                    await send_error(websocket, error)
                     continue
                 await broadcast_state(room)
 
