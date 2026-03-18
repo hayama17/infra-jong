@@ -566,7 +566,7 @@ export default function GameBoard({ gameState, playerName, onAction }) {
                   fontSize: "0.85rem",
                 }}
               >
-                ホットフィックス（ポン）
+                ポン
               </button>
             )}
             {canMergeNow && (
@@ -583,7 +583,7 @@ export default function GameBoard({ gameState, playerName, onAction }) {
                   fontSize: "0.85rem",
                 }}
               >
-                マージ（ロン）
+                ロン
               </button>
             )}
           </div>
@@ -785,7 +785,7 @@ export default function GameBoard({ gameState, playerName, onAction }) {
               onMouseEnter={(e) => (e.target.style.background = "rgba(63, 185, 80, 0.35)")}
               onMouseLeave={(e) => (e.target.style.background = "rgba(63, 185, 80, 0.2)")}
             >
-              コミット！（ツモ）
+              ツモ
             </button>
           )}
         </div>
