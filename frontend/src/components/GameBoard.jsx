@@ -343,7 +343,7 @@ export default function GameBoard({ gameState, playerName, onAction }) {
     setSelectedVisualIndex(null);
   };
 
-  // Drag-and-drop handlers
+  // Drag-and-drop handlers (mouse)
   const handleDragStart = (visualIndex) => {
     dragSrcIndex.current = visualIndex;
   };
@@ -360,19 +360,7 @@ export default function GameBoard({ gameState, playerName, onAction }) {
       setDragOverIndex(null);
       return;
     }
-    setHandOrder((prev) => {
-      const order = [...prev];
-      const [moved] = order.splice(src, 1);
-      order.splice(visualIndex, 0, moved);
-      return order;
-    });
-    // Adjust selectedVisualIndex after reorder
-    setSelectedVisualIndex((sel) => {
-      if (sel === src) return visualIndex;
-      if (src < visualIndex && sel > src && sel <= visualIndex) return sel - 1;
-      if (src > visualIndex && sel < src && sel >= visualIndex) return sel + 1;
-      return sel;
-    });
+    reorderHand(src, visualIndex);
     dragSrcIndex.current = null;
     setDragOverIndex(null);
   };
@@ -380,6 +368,44 @@ export default function GameBoard({ gameState, playerName, onAction }) {
   const handleDragEnd = () => {
     dragSrcIndex.current = null;
     setDragOverIndex(null);
+  };
+
+  const reorderHand = (src, dest) => {
+    setHandOrder((prev) => {
+      const order = [...prev];
+      const [moved] = order.splice(src, 1);
+      order.splice(dest, 0, moved);
+      return order;
+    });
+    setSelectedVisualIndex((sel) => {
+      if (sel === src) return dest;
+      if (src < dest && sel > src && sel <= dest) return sel - 1;
+      if (src > dest && sel < src && sel >= dest) return sel + 1;
+      return sel;
+    });
+  };
+
+  // Touch drag handlers (mobile)
+  const handleTouchStart = (e, visualIndex) => {
+    dragSrcIndex.current = visualIndex;
+  };
+
+  const handleTouchMove = (e) => {
+    e.preventDefault();
+    const touch = e.touches[0];
+    const el = document.elementFromPoint(touch.clientX, touch.clientY);
+    const tileEl = el?.closest("[data-visual-index]");
+    const idx = tileEl ? parseInt(tileEl.dataset.visualIndex, 10) : null;
+    setDragOverIndex(idx ?? null);
+  };
+
+  const handleTouchEnd = (e) => {
+    const src = dragSrcIndex.current;
+    const dest = dragOverIndex;
+    dragSrcIndex.current = null;
+    setDragOverIndex(null);
+    if (src === null || dest === null || src === dest) return;
+    reorderHand(src, dest);
   };
 
   // 理牌: sort alphabetically (case-insensitive)
@@ -693,17 +719,22 @@ export default function GameBoard({ gameState, playerName, onAction }) {
           {orderedHand.map((ch, vi) => (
             <div
               key={vi}
+              data-visual-index={vi}
               draggable
               onDragStart={() => handleDragStart(vi)}
               onDragOver={(e) => handleDragOver(e, vi)}
               onDrop={(e) => handleDrop(e, vi)}
               onDragEnd={handleDragEnd}
+              onTouchStart={(e) => handleTouchStart(e, vi)}
+              onTouchMove={handleTouchMove}
+              onTouchEnd={handleTouchEnd}
               onClick={() => setHighlightChar((prev) => (prev === ch ? null : ch))}
               style={{
                 opacity: dragSrcIndex.current === vi ? 0.4 : 1,
                 outline: dragOverIndex === vi ? "2px dashed #58a6ff" : "none",
                 borderRadius: "6px",
                 cursor: "grab",
+                touchAction: "none",
               }}
             >
               <Tile
