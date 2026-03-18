@@ -19,18 +19,18 @@
 | コミュニティ | CND | Cloud Native Days |
 | コミュニティ | PEK | Platform Engineering Kansai |
 
-## 牌一覧（全40枚）
+## 牌一覧（全44枚）
 
-| 文字 | 枚数 | 登場する用語 | 分類 |
+| 文字 | 枚数 | 登場用語数 | 分類 |
 | --- | --- | --- | --- |
-| R | 5 | SRE, RPC, CRD, RKE, CRE, DRE, NRE, CSR | Backbone |
-| E | 4 | SRE, RKE, CRE, DRE, NRE, PKE, PEK | Backbone |
-| C | 4 | RPC, CRD, CSP, CRE, CSR, CNK, CND | Backbone |
-| S | 4 | SRE, DNS, SDN, SDK, CSP, CSR | Backbone |
-| D | 4 | DNS, CRD, SDN, SDK, DRE, CND | Backbone |
-| K | 7 | SDK, RKE, PKE, CNK, PEK | Finisher |
-| N | 7 | DNS, SDN, NRE, CNK, CND | Finisher |
-| P | 5 | RPC, CSP, PKE, PEK | Finisher |
-| **合計** | **40** | | |
+| R | 7 | 8 | Backbone |
+| E | 6 | 7 | Backbone |
+| S | 6 | 6 | Backbone |
+| C | 4 | 7 | Middle |
+| D | 4 | 6 | Middle |
+| K | 6 | 5 | Finisher |
+| N | 6 | 5 | Finisher |
+| P | 5 | 4 | Finisher |
+| **合計** | **44** | | |
 
-> 4人×5枚=20枚配牌、残り20枚が山札。Finisher（K/N/P）を厚くして初期あがりを抑制。
+> 4人×5枚=20枚配牌、残り24枚が山札。R/E/S は多用語横断なので多め、K/N/P で希釈バランスを調整。

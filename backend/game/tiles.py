@@ -17,20 +17,18 @@ VALID_TERMS = [
     "CNK", "CND", "PEK",
 ]
 
-# Tile distribution (40 tiles total)
-# 4人×5枚=20枚配牌、残り20枚が山札
-# Backbone を抑えて孤立牌（N/P/K）を厚くすることで初期あがりを抑制
+# Tile distribution (44 tiles total)
+# 4人×5枚=20枚配牌、残り24枚が山札
+# R/E/S は多用語横断なので多め、Finisher(K/N/P)で希釈バランスを調整
 TILE_DISTRIBUTION = {
-    # Backbone (7〜8用語に登場) — 少なめに抑える
-    "R": 5,   # SRE,RPC,CRD,RKE,CRE,DRE,NRE,CSR
-    "E": 4,   # SRE,RKE,CRE,DRE,NRE,PKE,PEK
-    "C": 4,   # RPC,CRD,CSP,CRE,CSR,CNK,CND
-    "S": 4,   # SRE,DNS,SDN,SDK,CSP,CSR
-    "D": 4,   # DNS,CRD,SDN,SDK,DRE,CND
-    # Finisher (3〜5用語) — 多めにして山を希釈
-    "K": 7,   # SDK,RKE,PKE,CNK,PEK
-    "N": 7,   # DNS,SDN,NRE,CNK,CND
-    "P": 5,   # RPC,CSP,PKE,PEK
+    "R": 7,   # SRE,RPC,CRD,RKE,CRE,DRE,NRE,CSR (8用語)
+    "E": 6,   # SRE,RKE,CRE,DRE,NRE,PKE,PEK    (7用語)
+    "S": 6,   # SRE,DNS,SDN,SDK,CSP,CSR          (6用語)
+    "C": 4,   # RPC,CRD,CSP,CRE,CSR,CNK,CND      (7用語)
+    "D": 4,   # DNS,CRD,SDN,SDK,DRE,CND           (6用語)
+    "K": 6,   # SDK,RKE,PKE,CNK,PEK               (5用語)
+    "N": 6,   # DNS,SDN,NRE,CNK,CND               (5用語)
+    "P": 5,   # RPC,CSP,PKE,PEK                   (4用語)
 }
 
 # Total tiles = 48
