@@ -17,20 +17,20 @@ VALID_TERMS = [
     "CNK", "CND", "PEK",
 ]
 
-# Tile distribution (52 tiles total)
+# Tile distribution (40 tiles total)
+# 4人×5枚=20枚配牌、残り20枚が山札
 # Backbone を抑えて孤立牌（N/P/K）を厚くすることで初期あがりを抑制
 TILE_DISTRIBUTION = {
     # Backbone (7〜8用語に登場) — 少なめに抑える
-    "R": 6,   # SRE,RPC,CRD,RKE,CRE,DRE,NRE,CSR
-    "E": 5,   # SRE,RKE,CRE,DRE,NRE,PKE,PEK
-    "C": 5,   # RPC,CRD,CSP,CRE,CSR,CNK,CND
-    # Middle (5〜6用語に登場)
-    "S": 5,   # SRE,DNS,SDN,SDK,CSP,CSR
-    "D": 5,   # DNS,CRD,SDN,SDK,DRE,CND
+    "R": 5,   # SRE,RPC,CRD,RKE,CRE,DRE,NRE,CSR
+    "E": 4,   # SRE,RKE,CRE,DRE,NRE,PKE,PEK
+    "C": 4,   # RPC,CRD,CSP,CRE,CSR,CNK,CND
+    "S": 4,   # SRE,DNS,SDN,SDK,CSP,CSR
+    "D": 4,   # DNS,CRD,SDN,SDK,DRE,CND
     # Finisher (3〜5用語) — 多めにして山を希釈
-    "K": 9,   # SDK,RKE,PKE,CNK,PEK
-    "N": 9,   # DNS,SDN,NRE,CNK,CND
-    "P": 8,   # RPC,CSP,PKE,PEK
+    "K": 7,   # SDK,RKE,PKE,CNK,PEK
+    "N": 7,   # DNS,SDN,NRE,CNK,CND
+    "P": 5,   # RPC,CSP,PKE,PEK
 }
 
 # Total tiles = 48

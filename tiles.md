@@ -19,18 +19,18 @@
 | コミュニティ | CND | Cloud Native Days |
 | コミュニティ | PEK | Platform Engineering Kansai |
 
-## 牌一覧（全52枚）
+## 牌一覧（全40枚）
 
 | 文字 | 枚数 | 登場する用語 | 分類 |
 | --- | --- | --- | --- |
-| R | 6 | SRE, RPC, CRD, RKE, CRE, DRE, NRE, CSR | Backbone |
-| E | 5 | SRE, RKE, CRE, DRE, NRE, PKE, PEK | Backbone |
-| C | 5 | RPC, CRD, CSP, CRE, CSR, CNK, CND | Backbone |
-| S | 5 | SRE, DNS, SDN, SDK, CSP, CSR | Middle |
-| D | 5 | DNS, CRD, SDN, SDK, DRE, CND | Middle |
-| K | 9 | SDK, RKE, PKE, CNK, PEK | Finisher |
-| N | 9 | DNS, SDN, NRE, CNK, CND | Finisher |
-| P | 8 | RPC, CSP, PKE, PEK | Finisher |
-| **合計** | **52** | | |
+| R | 5 | SRE, RPC, CRD, RKE, CRE, DRE, NRE, CSR | Backbone |
+| E | 4 | SRE, RKE, CRE, DRE, NRE, PKE, PEK | Backbone |
+| C | 4 | RPC, CRD, CSP, CRE, CSR, CNK, CND | Backbone |
+| S | 4 | SRE, DNS, SDN, SDK, CSP, CSR | Backbone |
+| D | 4 | DNS, CRD, SDN, SDK, DRE, CND | Backbone |
+| K | 7 | SDK, RKE, PKE, CNK, PEK | Finisher |
+| N | 7 | DNS, SDN, NRE, CNK, CND | Finisher |
+| P | 5 | RPC, CSP, PKE, PEK | Finisher |
+| **合計** | **40** | | |
 
-> Backbone（R/E/C）は抑えめ、Finisher（K/N/P）を厚くして初期あがりを抑制。
+> 4人×5枚=20枚配牌、残り20枚が山札。Finisher（K/N/P）を厚くして初期あがりを抑制。
